@@ -32,4 +32,12 @@ struct Constants {
         static let TymValueAllocationPerLoop: Int = 1
         static let TymBaseValuePerPress: Int = 1
     }
+    
+    // new Post textField constants 
+    
+    struct TextFieldConstants {
+        static let TextFieldPadding = 13.0
+        static let NewPostTextFieldPlaceholderTextSection1 = "Thoughts?"
+        static let NewPostTextFieldPlaceholderTextSection2 = "They took the time, so anything else?"
+    }
 }

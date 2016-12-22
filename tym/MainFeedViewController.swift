@@ -75,6 +75,6 @@ extension MainFeedViewController: TymCellDelegate {
 extension MainFeedViewController {
     
     func configureUI() {
-        configureTopToolBar(topToolBar: topToolBar, mainView: self.view)
+        configureTopToolBarColorGradient(topToolBar: topToolBar, mainView: self.view)
     }
 }
