@@ -22,6 +22,7 @@ struct Constants {
         static let ButtonBaseSizeFactor: CGFloat = 1.0
         static let TymButtonExpansionRateInverse: CGFloat = 6.0
         static let TymButtonJumpBackTime: TimeInterval = 0.6
+        static let MaximumSizeTymButton: CGFloat = 3.0
     }
     
     // adjust TymValueAllocationPerLoop to increase or decrease the value added to object per timer loop

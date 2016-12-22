@@ -51,7 +51,10 @@ class InitialTableViewCell: UITableViewCell {
     }
     
     func expandButtton() {
-        expansionFactor = (expansionFactor + ((Constants.TymButtonAnimationKeys.TymButtonExpansionRateInverse / 3) * (Constants.TymButtonAnimationKeys.TimeLoopRepeat)))
+        
+        if expansionFactor! < Constants.TymButtonAnimationKeys.MaximumSizeTymButton {
+            expansionFactor = (expansionFactor + ((Constants.TymButtonAnimationKeys.TymButtonExpansionRateInverse / 3) * (Constants.TymButtonAnimationKeys.TimeLoopRepeat)))
+        }
         
         UIView.animate(withDuration: (Double(Constants.TymButtonAnimationKeys.TymButtonExpansionRateInverse) * TimeInterval(Constants.TymButtonAnimationKeys.TimeLoopRepeat))) {
             self.tymButton.transform = CGAffineTransform(scaleX: self.expansionFactor, y: self.expansionFactor)

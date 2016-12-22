@@ -8,15 +8,18 @@
 
 import UIKit
 
-class MainFeedViewController: UIViewController {
+class MainFeedViewController: BaseUIViewController {
     
+    @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var mainFeedTableView: UITableView!
     var mainArray = [["name": "Anonymous", "imageName": "Image", "tym": 100]]
+    
     var timer: Timer!
     var tymAllocationTemporaryStorage: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -69,3 +72,9 @@ extension MainFeedViewController: TymCellDelegate {
     
 }
 
+extension MainFeedViewController {
+    
+    func configureUI() {
+        configureTopToolBar(topToolBar: topToolBar, mainView: self.view)
+    }
+}
