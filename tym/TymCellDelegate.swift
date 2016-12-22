@@ -12,5 +12,4 @@ protocol TymCellDelegate {
     func tymStart(indexPath: IndexPath)
     func tymEnd(indexPath: IndexPath)
     func tymAllocate(indexPath: IndexPath)
-    func tymViewScreen(indexPath: IndexPath)
 }
