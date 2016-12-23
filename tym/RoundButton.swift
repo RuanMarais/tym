@@ -21,10 +21,11 @@ class RoundButton: UIButton {
     }
     
     private func roundButton() {
+        
         self.clipsToBounds = true
-        layer.cornerRadius = 0.5 * self.frame.height
+        layer.cornerRadius = 0.5 * frame.height
         backgroundColor = Constants.UIConstants.MainColour
-        self.frame.size.width = self.frame.height
+        
         self.layer.borderColor = Constants.UIConstants.MainColour.cgColor
         self.layer.borderWidth = 2.0
     }

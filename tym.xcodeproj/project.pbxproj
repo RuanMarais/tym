@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C43C076A1E0B86A700E92CE5 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C07691E0B86A700E92CE5 /* BaseUIViewController.swift */; };
 		C43C076C1E0C64BB00E92CE5 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C076B1E0C64BB00E92CE5 /* NewPostViewController.swift */; };
+		C43C078C1E0D7DB500E92CE5 /* CameraCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C078B1E0D7DB500E92CE5 /* CameraCaptureViewController.swift */; };
 		C4A29E901E09AD7900D24974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A29E8F1E09AD7900D24974 /* AppDelegate.swift */; };
 		C4A29E921E09AD7900D24974 /* MainFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A29E911E09AD7900D24974 /* MainFeedViewController.swift */; };
 		C4A29E951E09AD7900D24974 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A29E931E09AD7900D24974 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		C43C07691E0B86A700E92CE5 /* BaseUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		C43C076B1E0C64BB00E92CE5 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		C43C078B1E0D7DB500E92CE5 /* CameraCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureViewController.swift; sourceTree = "<group>"; };
 		C4A29E8C1E09AD7900D24974 /* tym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tym.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A29E8F1E09AD7900D24974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A29E911E09AD7900D24974 /* MainFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A29E911E09AD7900D24974 /* MainFeedViewController.swift */,
+				C43C078B1E0D7DB500E92CE5 /* CameraCaptureViewController.swift */,
 				C43C076B1E0C64BB00E92CE5 /* NewPostViewController.swift */,
 				C43C07691E0B86A700E92CE5 /* BaseUIViewController.swift */,
 			);
@@ -193,6 +196,7 @@
 				C4E2DA331E09E8E400714C65 /* InitialTableViewCell.swift in Sources */,
 				C43C076A1E0B86A700E92CE5 /* BaseUIViewController.swift in Sources */,
 				C43C076C1E0C64BB00E92CE5 /* NewPostViewController.swift in Sources */,
+				C43C078C1E0D7DB500E92CE5 /* CameraCaptureViewController.swift in Sources */,
 				C4A29E901E09AD7900D24974 /* AppDelegate.swift in Sources */,
 				C4E2DA371E09EBF200714C65 /* Constants.swift in Sources */,
 			);
