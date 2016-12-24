@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 struct Constants {
+    
+    // Constants for UI elements 
 
     struct UIConstants {
         static let MainColour = UIColor(colorLiteralRed: 0.620, green: 0.004, blue: 0.949, alpha: 1.0)
@@ -39,5 +41,19 @@ struct Constants {
         static let TextFieldPadding = 13.0
         static let NewPostTextFieldPlaceholderTextSection1 = "Thoughts?"
         static let NewPostTextFieldPlaceholderTextSection2 = "They took the time, so anything else?"
+        static let MaxTextPostCharacterLength = 100
+    }
+    
+    // Firebase database keys
+    
+    struct DatabaseKeys {
+        static let userID = "users"
+        static let posts = "posts"
+        static let user = "userName"
+        static let textOne = "textOne"
+        static let textTwo = "textTwo"
+        static let imageUrlOne = "imageUrlOne"
+        static let imageUrlTwo = "imageUrlTwo"
+        
     }
 }

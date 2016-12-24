@@ -8,6 +8,8 @@
 
 import Foundation
 
+//Delegate protocol for tym cells to allow allocation of tym to database object linked to cell
+
 protocol TymCellDelegate {
     func tymStart(indexPath: IndexPath)
     func tymEnd(indexPath: IndexPath)

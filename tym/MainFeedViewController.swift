@@ -10,9 +10,13 @@ import UIKit
 
 class MainFeedViewController: BaseUIViewController {
     
+    //MARK: Properties - UI elements
+    
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var mainFeedTableView: UITableView!
     var mainArray = [["name": "Anonymous", "imageName": "Image", "tym": 100]]
+    
+    //MARK: Properties - tym allocation 
     
     var timer: Timer!
     var tymAllocationTemporaryStorage: Int!
@@ -73,6 +77,8 @@ extension MainFeedViewController: TymCellDelegate {
 }
 
 extension MainFeedViewController {
+    
+    //UI configuration methods 
     
     func configureUI() {
         configureTopToolBarColorGradient(topToolBar: topToolBar, mainView: self.view)

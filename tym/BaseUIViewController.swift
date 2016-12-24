@@ -9,16 +9,24 @@
 import UIKit
 
 class BaseUIViewController: UIViewController {
+    
+    var keyboardOnScreen: Bool = false 
+    var keyboardRequiredShift: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.unsubscribeToAllNotifications()
     }
 }
 
@@ -47,7 +55,9 @@ extension BaseUIViewController {
 
 extension BaseUIViewController: UITextFieldDelegate {
     
-    private func configureNewPostTextField(firstSection: Bool, textField: UITextField) {
+    //Textfield UI elements for new post creation
+    
+    func configureNewPostTextField(firstSection: Bool, textField: UITextField) {
         
         let textFieldPaddingViewFrame = CGRect(x: 0.0, y: 0.0, width: Constants.TextFieldConstants.TextFieldPadding, height: 0.0)
         let textFieldPaddingView = UIView(frame: textFieldPaddingViewFrame)
@@ -64,6 +74,30 @@ extension BaseUIViewController: UITextFieldDelegate {
         textField.autocorrectionType = UITextAutocorrectionType.no
         
         textField.delegate = self
+    }
+    
+    //New post textfield delegate methods
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func resignIfFirstResponder(textField: UITextField) {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+    }
+    
+    func resignFirstResponderWhenTapped() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapView(sender:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    //Implement by subclass to resign firstResponders
+    
+    @objc func userDidTapView(sender: AnyObject) {
+        
     }
 }
 
@@ -104,5 +138,12 @@ extension BaseUIViewController {
     func keyboardDidHide(notification: NSNotification) {
         
     }
+    
+    func keyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+
 
 }
