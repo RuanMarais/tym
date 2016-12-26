@@ -8,6 +8,8 @@
 
 import UIKit
 
+//class for round button used throughout UI
+
 class RoundButton: UIButton {
     
     required init(coder aDecoder: NSCoder) {

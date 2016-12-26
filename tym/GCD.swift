@@ -14,7 +14,7 @@ class Dispatch {
     
     //Main Queue
     
-    func performUIUpdatesOnMain(updates: @escaping () -> Void) {
+    func performUpdatesOnMain(updates: @escaping () -> Void) {
         DispatchQueue.main.async(execute: updates)
     }
     

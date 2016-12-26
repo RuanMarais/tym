@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseUIViewController: UIViewController {
+class BaseUIViewController: UIViewController, UINavigationControllerDelegate {
     
     var keyboardOnScreen: Bool = false 
     var keyboardRequiredShift: Bool = false
@@ -144,6 +144,14 @@ extension BaseUIViewController {
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
+}
 
-
+extension BaseUIViewController {
+    
+    func presentPhotoLibraryImagePicker(viewController: UIViewController, delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate)) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = delegate
+        imagePicker.sourceType = .photoLibrary
+        viewController.present(imagePicker, animated: true, completion: nil)
+    }
 }

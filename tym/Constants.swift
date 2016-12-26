@@ -17,6 +17,16 @@ struct Constants {
         static let MainColour = UIColor(colorLiteralRed: 0.620, green: 0.004, blue: 0.949, alpha: 1.0)
     }
     
+    // ActionSheet and Alert messages
+    
+    struct AlertMessages {
+        static let AddImageTitle = "Add an Image"
+        static let AddImageMessage = "Choose the source"
+        static let Camera = "Camera"
+        static let Library = "Library"
+        static let Cancel = "Cancel"
+    }
+    
     // tymButton animation keys, expansion rate increases as tymExpansionRateInverse decreases
     
     struct TymButtonAnimationKeys {
@@ -54,6 +64,22 @@ struct Constants {
         static let textTwo = "textTwo"
         static let imageUrlOne = "imageUrlOne"
         static let imageUrlTwo = "imageUrlTwo"
-        
+        static let tym = "tym"
+        static let timeGateSection2 = "timeGate"
+    }
+    
+    // Firebase storage keys
+    
+    struct StorageKeys {
+        static let PostPhotosFolder = "posts_photos/"
+        static let contentTypeJPEG = "image/jpeg"
+    }
+    
+    // Enum for database and storage handling error strings
+    
+    enum ErrorMessages: String {
+        case NotSignedIn = "User Not Signed In"
+        case NoDatabaseReference = "No Database Reference"
+        case NoStorageReference = "No Storage Reference Found"
     }
 }

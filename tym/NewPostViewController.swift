@@ -27,9 +27,14 @@ class NewPostViewController: BaseUIViewController {
     @IBOutlet weak var labelImageButtonSection1: UILabel!
     @IBOutlet weak var imageButtonSection1: UIButton!
     @IBOutlet weak var textFieldSection1: UITextField!
+    var imageForUploadSection1Data: Data?
+    
+    // To distinguish to which section an imge is allocated on imagepicker/camera call
+    var imageAllocationSection1 = false
     
     //MARK: Properties - Section 2
     
+    var section2Present = false
     @IBOutlet weak var textPreviewSection2: UITextView!
     @IBOutlet weak var imagePreviewSection2: UIImageView!
     @IBOutlet weak var labelTextFieldSection2: UILabel!
@@ -38,7 +43,11 @@ class NewPostViewController: BaseUIViewController {
     @IBOutlet weak var labelDurationInputSection2: UILabel!
     @IBOutlet weak var durationInputSliderSection2: UISlider!
     @IBOutlet weak var textFieldSection2: UITextField!
+    var imageForUploadSection2Data: Data?
     
+    //MARK: Properties - controllers 
+    
+    var imageActionSheet: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +65,22 @@ class NewPostViewController: BaseUIViewController {
         self.unsubscribeToAllNotifications()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        clearPostInputFields()
+    }
+    
+    // Add image to post button press events
+    
+    @IBAction func addImageToPostSection1(_ sender: Any) {
+        imageAllocationSection1 = true
+        self.present(imageActionSheet!, animated: true, completion: nil)
+    }
+    
+    @IBAction func addImageToPostSection2(_ sender: Any) {
+        self.present(imageActionSheet!, animated: true, completion: nil)
+    }
+       
+    
     @IBAction func clearPostFields(_ sender: Any) {
     }
     
@@ -64,34 +89,88 @@ class NewPostViewController: BaseUIViewController {
     
     @IBAction func postToDatabase(_ sender: Any) {
         
-        if DatabaseHandling.sharedInstance.isSignedIn {
-            DatabaseHandling.sharedInstance.createPost(textSectionOne: textPreviewSection1.text, imageSectionOne: nil, textSectionTwo: textPreviewSection2.text, imageSectionTwo: nil, timeGateSectionTwo: nil)
-            
-        } else {
-            //sign in alert controller
+        // Create post struct
+        var post = Post(postDictionary: [:])
+        
+        //Add text if available for section 1
+        if (textPreviewSection1.text != nil) && (textPreviewSection1.text != "") {
+            let text1 = textPreviewSection1.text
+            post.postData[Constants.DatabaseKeys.textOne] = text1
         }
         
+        //Add text and timegate if available for section 2
+        if section2Present {
+            if (textPreviewSection2.text != nil) && (textPreviewSection2.text != "") {
+                let text2 = textPreviewSection2.text
+                post.postData[Constants.DatabaseKeys.textTwo] = text2
+            }
+            let timeGate = Int(durationInputSliderSection2.value)
+                post.postData[Constants.DatabaseKeys.timeGateSection2] = "\(timeGate)"
+            
+        }
+        
+        //Call database and storage methods 
+        DatabaseHandling.sharedInstance.createPost(postTextOnly: post, dataImageSection1: imageForUploadSection1Data, dataImageSection2: imageForUploadSection2Data) { (success, error) in
+            Dispatch.sharedInstance.performUpdatesOnMain(updates: { 
+                if success {
+                    //alert success
+                } else {
+                    print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
+                    switch error?.userInfo[NSLocalizedDescriptionKey] as! String {
+                    case Constants.ErrorMessages.NoDatabaseReference.rawValue, Constants.ErrorMessages.NoStorageReference.rawValue:
+                    //alert database
+                    break
+                    case Constants.ErrorMessages.NotSignedIn.rawValue:
+                        DatabaseHandling.sharedInstance.loginSession(viewController: self)
+                    default:
+                        //alert storage
+                        break
+                    }
+                }
+            })
+        }
     }
-    
     
 }
 
-// Configure UI elements
+// Configure class inistialisation
 
 extension NewPostViewController {
     
     func configure() {
+        
+        // UI elements for configuration 
+        
         configureNewPostTextField(firstSection: true, textField: textFieldSection1)
         configureNewPostTextField(firstSection: false, textField: textFieldSection2)
         keyboardOnScreen = false
         keyboardRequiredShift = false
         subscribeKeyboardNotifications()
         
+        //Alerts and actions 
+        
+        imageActionSheet = UIAlertController(title: Constants.AlertMessages.AddImageTitle, message: Constants.AlertMessages.AddImageMessage, preferredStyle: .actionSheet)
+        
+        let imageChoiceLibrary = UIAlertAction(title: Constants.AlertMessages.Library, style: .default) { (action) in
+                self.presentPhotoLibraryImagePicker(viewController: self, delegate: self)
+        }
+        
+        let imageChoiceCamera = UIAlertAction(title: Constants.AlertMessages.Camera, style: .default) { (action) in
+            //Add segue to camera view here
+        }
+        
+        let imageChoiceCancel = UIAlertAction(title: Constants.AlertMessages.Cancel, style: .cancel) { (action) in
+                self.imageActionSheet.dismiss(animated: true, completion: nil)
+        }
+        
+        imageActionSheet.addAction(imageChoiceCamera)
+        imageActionSheet.addAction(imageChoiceLibrary)
+        imageActionSheet.addAction(imageChoiceCancel)
+       
+        // Authorisation 
+        
         DatabaseHandling.sharedInstance.configureAuth(viewController: self)
         
-        if DatabaseHandling.sharedInstance.isSignedIn {
-            DatabaseHandling.sharedInstance.configureDatabase()
-        }
     }
     
     func clearPostInputFields() {
@@ -166,4 +245,29 @@ extension NewPostViewController {
         keyboardOnScreen = false
     }
 
+}
+
+// Photolibrary delegate
+
+extension NewPostViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage, let imageData = UIImageJPEGRepresentation(image, 0.8) {
+            
+            if imageAllocationSection1 {
+                imagePreviewSection1.image = image
+                imageForUploadSection1Data = imageData
+                imageAllocationSection1 = false
+            } else {
+                imagePreviewSection2.image = image
+                imageForUploadSection2Data = imageData
+            }
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imageAllocationSection1 = false
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

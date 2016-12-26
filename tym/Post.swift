@@ -13,10 +13,10 @@ struct Post {
     
     //Dictionary containing elements of each post 
     
-    var posts: [String: AnyObject?]
+    var postData: [String: String]
     
-    init (postsDictionary: [String: AnyObject?]) {
-        posts = postsDictionary
+    init (postDictionary: [String: String]) {
+        postData = postDictionary
     }
 
 }

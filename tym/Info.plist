@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Tym would like to use your media in a post </string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Tym would like to use your media in a post </string>
+	<key>NSCameraUsageDescription</key>
+	<string>Tym would like to use your camera to create a post </string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
