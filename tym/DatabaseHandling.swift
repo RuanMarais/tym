@@ -11,6 +11,7 @@ import FirebaseAuthUI
 import Firebase
 import FirebaseGoogleAuthUI
 import FirebaseStorageUI
+import FirebaseDatabaseUI
 
 class DatabaseHandling {
     
@@ -34,10 +35,11 @@ class DatabaseHandling {
         FIRAuth.auth()?.removeStateDidChangeListener(authHandle)
     }
     
-    // Establish database connection 
+    // Establish database connection and check if user has been added to the database 
     
     func configureDatabase() {
         ref = FIRDatabase.database().reference()
+        updateUserList()
     }
     
     // Post to database method
@@ -188,12 +190,25 @@ class DatabaseHandling {
     }
     
     //establish connection to database and storage if signed in
+    
     func signedInConfigure(isSignedIn: Bool) {
         if (isSignedIn) {
             configureStorage()
             configureDatabase()
             self.isSignedIn = isSignedIn
         }
+    }
+    
+    //checks if current user has been created on database and adds a user with initialised tym if not
+    
+    func updateUserList() {
+        let username = displayName!
+        let userSetUpData = [Constants.DatabaseKeys.user: username, Constants.DatabaseKeys.tym: "\(0)"]
+        ref.child(Constants.DatabaseKeys.userList).observeSingleEvent(of: .value, with: { (userSnapshot) in
+            if !(userSnapshot.hasChild(self.userID!)) {
+                self.ref.child(Constants.DatabaseKeys.userList).child(self.userID!).setValue(userSetUpData)
+            }
+        })
     }
     
 }

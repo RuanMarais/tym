@@ -392,7 +392,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="186"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o98-aK-hsB" id="niD-mV-QAR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kPE-b6-iiJ">
@@ -473,7 +473,10 @@
                     <tabBarItem key="tabBarItem" title="Item" id="XnU-Fx-Vx8"/>
                     <navigationItem key="navigationItem" id="FXS-W5-NzI"/>
                     <connections>
+                        <outlet property="feauturedPostsButton" destination="TJu-NY-dwG" id="yck-Mo-hR5"/>
                         <outlet property="mainFeedTableView" destination="tF1-Ud-Doc" id="jae-gD-5sU"/>
+                        <outlet property="newPostsButton" destination="ht0-6E-Vpq" id="3PH-f1-JAb"/>
+                        <outlet property="topPostsButton" destination="DQW-Cd-JFR" id="DUn-3e-zgv"/>
                         <outlet property="topToolBar" destination="OYA-N9-Xb3" id="pxl-U5-FUd"/>
                     </connections>
                 </viewController>

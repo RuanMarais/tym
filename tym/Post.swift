@@ -18,5 +18,5 @@ struct Post {
     init (postDictionary: [String: String]) {
         postData = postDictionary
     }
-
+    
 }

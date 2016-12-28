@@ -57,7 +57,7 @@ struct Constants {
     // Firebase database keys
     
     struct DatabaseKeys {
-        static let userID = "users"
+        static let userList = "users"
         static let posts = "posts"
         static let user = "userName"
         static let textOne = "textOne"

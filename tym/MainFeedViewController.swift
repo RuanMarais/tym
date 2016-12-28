@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabaseUI
 
 class MainFeedViewController: BaseUIViewController {
     
@@ -14,7 +16,16 @@ class MainFeedViewController: BaseUIViewController {
     
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var mainFeedTableView: UITableView!
-    var mainArray = [["name": "Anonymous", "imageName": "Image", "tym": 100]]
+    
+    @IBOutlet weak var newPostsButton: UIBarButtonItem!
+    @IBOutlet weak var feauturedPostsButton: UIBarButtonItem!
+    @IBOutlet weak var topPostsButton: UIBarButtonItem!
+    
+    //MARK: Properties - Database
+    
+    var postsTop: [FIRDataSnapshot]! = []
+    var postsFeatured: [FIRDataSnapshot]! = []
+    var postsNew: [FIRDataSnapshot]! = []
     
     //MARK: Properties - tym allocation 
     
@@ -83,4 +94,14 @@ extension MainFeedViewController {
     func configureUI() {
         configureTopToolBarColorGradient(topToolBar: topToolBar, mainView: self.view)
     }
+}
+
+extension MainFeedViewController {
+    
+    //Get data from database to display in tableview 
+    
+    func retrieveData() {
+        
+    }
+    
 }
