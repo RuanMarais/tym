@@ -30,7 +30,7 @@ class NewPostViewController: BaseUIViewController {
     var imageForUploadSection1Data: Data?
     
     // To distinguish to which section an imge is allocated on imagepicker/camera call
-    var imageAllocationSection1 = false
+    var imageAllocationSection1 = true
     
     //MARK: Properties - Section 2
     
@@ -77,6 +77,7 @@ class NewPostViewController: BaseUIViewController {
     }
     
     @IBAction func addImageToPostSection2(_ sender: Any) {
+        imageAllocationSection1 = false
         self.present(imageActionSheet!, animated: true, completion: nil)
     }
        
@@ -151,14 +152,20 @@ extension NewPostViewController {
         
         imageActionSheet = UIAlertController(title: Constants.AlertMessages.AddImageTitle, message: Constants.AlertMessages.AddImageMessage, preferredStyle: .actionSheet)
         
+        //present photolibrary
         let imageChoiceLibrary = UIAlertAction(title: Constants.AlertMessages.Library, style: .default) { (action) in
                 self.presentPhotoLibraryImagePicker(viewController: self, delegate: self)
         }
         
+        //present camera
         let imageChoiceCamera = UIAlertAction(title: Constants.AlertMessages.Camera, style: .default) { (action) in
-            //Add segue to camera view here
+            let cameraController = self.storyboard!.instantiateViewController(withIdentifier: "cameraView") as! CameraCaptureViewController
+            cameraController.modalPresentationStyle = .fullScreen
+            cameraController.imageAllocationSection1 = self.imageAllocationSection1
+            self.present(cameraController, animated: true, completion: nil)
         }
         
+        //cancel image input
         let imageChoiceCancel = UIAlertAction(title: Constants.AlertMessages.Cancel, style: .cancel) { (action) in
                 self.imageActionSheet.dismiss(animated: true, completion: nil)
         }

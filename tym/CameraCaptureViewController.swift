@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class CameraCaptureViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+class CameraCaptureViewController: BaseUIViewController, AVCapturePhotoCaptureDelegate {
 
     //MARK: Properties - UI elements
     
@@ -23,7 +23,10 @@ class CameraCaptureViewController: UIViewController, AVCapturePhotoCaptureDelega
     var captureSession: AVCaptureSession?
     var sessionOutput: AVCapturePhotoOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
-    var capturedImage: UIImage?
+    
+    //MARK: Image allocation
+    
+    var imageAllocationSection1 = true
     
     // Set up preview of image capture
     
@@ -69,7 +72,18 @@ class CameraCaptureViewController: UIViewController, AVCapturePhotoCaptureDelega
                 let dataProvider = CGDataProvider(data: imageData as CFData)
                 let cgImage = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.absoluteColorimetric)
                 let image = UIImage(cgImage: cgImage!, scale: 1.0, orientation: UIImageOrientation.up)
-                capturedImage = image
+                
+                //save image to temporary data storage 
+                if imageAllocationSection1 {
+                    Storage.sharedInstance.cameraViewTemporaryImageSection1 = image
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    Storage.sharedInstance.cameraViewTemporaryImageSection2 = image
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                // if image creation unsuccessful - set image storage to nil
+                cancelAndDismiss()
             }
         }
     }
@@ -82,9 +96,49 @@ class CameraCaptureViewController: UIViewController, AVCapturePhotoCaptureDelega
     }
     
     @IBAction func openAlbumAction(_ sender: Any) {
+        self.presentPhotoLibraryImagePicker(viewController: self, delegate: self)
     }
     
     @IBAction func cancelPhotoCaptureAction(_ sender: Any) {
+        cancelAndDismiss()
     }
     
+    func cancelAndDismiss() {
+        Storage.sharedInstance.cameraViewTemporaryImageSection1 = nil
+        Storage.sharedInstance.cameraViewTemporaryImageSection2 = nil
+        self.dismiss(animated: true, completion: nil)
+    }
 }
+
+//album delegate methods - picked images sent to Storage class for use in NewPostViewController
+extension CameraCaptureViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            prepareImageForPostPreviewAndSave(image: image)
+        }
+        picker.dismiss(animated: true) { 
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+//allocate image to Storage class for use in NewPostViewController
+
+extension CameraCaptureViewController {
+    
+    func prepareImageForPostPreviewAndSave(image: UIImage) {
+        if imageAllocationSection1 {
+            Storage.sharedInstance.cameraViewTemporaryImageSection1 = image
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            Storage.sharedInstance.cameraViewTemporaryImageSection2 = image
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+

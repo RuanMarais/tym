@@ -146,6 +146,8 @@ extension BaseUIViewController {
     }
 }
 
+//method to present photo album to select an image for post allocation
+
 extension BaseUIViewController {
     
     func presentPhotoLibraryImagePicker(viewController: UIViewController, delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate)) {

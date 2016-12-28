@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73CC7B1B129285CE2DA3492C /* Pods_tym.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EE08F1CCA1A79A659621BC /* Pods_tym.framework */; };
+		C433AA391E132FB500325882 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433AA381E132FB500325882 /* Storage.swift */; };
 		C43C076A1E0B86A700E92CE5 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C07691E0B86A700E92CE5 /* BaseUIViewController.swift */; };
 		C43C076C1E0C64BB00E92CE5 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C076B1E0C64BB00E92CE5 /* NewPostViewController.swift */; };
 		C43C078C1E0D7DB500E92CE5 /* CameraCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C078B1E0D7DB500E92CE5 /* CameraCaptureViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C433AA381E132FB500325882 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		C43C07691E0B86A700E92CE5 /* BaseUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		C43C076B1E0C64BB00E92CE5 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		C43C078B1E0D7DB500E92CE5 /* CameraCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,26 @@
 				D8EE08F1CCA1A79A659621BC /* Pods_tym.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C433AA3A1E13304500325882 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C43C078F1E0DEBCB00E92CE5 /* Post.swift */,
+				C43C078D1E0DD99C00E92CE5 /* GCD.swift */,
+				C4E2DA301E09E5B500714C65 /* TymCellDelegate.swift */,
+				C4E2DA361E09EBF200714C65 /* Constants.swift */,
+				C433AA381E132FB500325882 /* Storage.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		C433AA3B1E13305F00325882 /* FirebaseClient */ = {
+			isa = PBXGroup;
+			children = (
+				C4E33A121E0EEB7C000DFE16 /* DatabaseHandling.swift */,
+			);
+			name = FirebaseClient;
 			sourceTree = "<group>";
 		};
 		C4A29E831E09AD7900D24974 = {
@@ -131,11 +153,8 @@
 		C4A29EA41E09ADC500D24974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C4E2DA301E09E5B500714C65 /* TymCellDelegate.swift */,
-				C43C078F1E0DEBCB00E92CE5 /* Post.swift */,
-				C43C078D1E0DD99C00E92CE5 /* GCD.swift */,
-				C4E2DA361E09EBF200714C65 /* Constants.swift */,
-				C4E33A121E0EEB7C000DFE16 /* DatabaseHandling.swift */,
+				C433AA3A1E13304500325882 /* Utility */,
+				C433AA3B1E13305F00325882 /* FirebaseClient */,
 				C4A29EA51E09ADD200D24974 /* Supporting FIles */,
 			);
 			name = Model;
@@ -290,6 +309,7 @@
 				C43C078C1E0D7DB500E92CE5 /* CameraCaptureViewController.swift in Sources */,
 				C4A29E901E09AD7900D24974 /* AppDelegate.swift in Sources */,
 				C4E2DA371E09EBF200714C65 /* Constants.swift in Sources */,
+				C433AA391E132FB500325882 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
