@@ -29,6 +29,14 @@ class DatabaseHandling {
     var isSignedIn: Bool = false
     var displayName: String? = "Anonymous"
     
+    //database elements observed
+    
+    var postsTop: [FIRDataSnapshot]! = []
+    var postsFeatured: [FIRDataSnapshot]! = []
+    var postsNew: [FIRDataSnapshot]! = []
+    var postsOwn: [FIRDataSnapshot]! = []
+    var tymOwn: [FIRDataSnapshot]! = []
+    
     // Deconfigure listeners 
     
     deinit {
@@ -50,8 +58,9 @@ class DatabaseHandling {
         var postData = postTextOnly.postData
         
         // Add display name and initialise allocated tym
-        postData[Constants.DatabaseKeys.user] = displayName
-        postData[Constants.DatabaseKeys.tym] = "\(0)"
+        postData[Constants.DatabaseKeys.user] = displayName as AnyObject
+        postData[Constants.DatabaseKeys.tym] = 0 as AnyObject
+        postData[Constants.DatabaseKeys.timestamp] = Constants.DatabaseKeys.serverTime as AnyObject
         
         // Error handling
         func sendError(error: String) {
@@ -89,14 +98,14 @@ class DatabaseHandling {
             sendToStorage(imageData: data1, completionHandlerForSendToStorage: { (success, url, error) in
                 if success {
                     //if image successfully saved to storage, get url from completionhandler and add to postData
-                    postData[Constants.DatabaseKeys.imageUrlOne] = url!
+                    postData[Constants.DatabaseKeys.imageUrlOne] = url! as AnyObject?
                     //check if post contains an image in section 2
                     if let data2 = dataImageSection2 {
                         //if image present - save image to storage
                         self.sendToStorage(imageData: data2, completionHandlerForSendToStorage: { (success, url, error) in
                             if success {
                                 //if image successfully saved to storage, get url from completionhandler and add to postData
-                                postData[Constants.DatabaseKeys.imageUrlTwo] = url!
+                                postData[Constants.DatabaseKeys.imageUrlTwo] = url! as AnyObject?
                                 //send completed postData to database and pass success to completionhandler
                                 self.ref.child(Constants.DatabaseKeys.posts).child(Constants.DatabaseKeys.user).child(userID).childByAutoId().setValue(postData)
                                 completionHandlerForCreatePost(true, nil)
@@ -203,12 +212,19 @@ class DatabaseHandling {
     
     func updateUserList() {
         let username = displayName!
-        let userSetUpData = [Constants.DatabaseKeys.user: username, Constants.DatabaseKeys.tym: "\(0)"]
+        let userSetUpData = [Constants.DatabaseKeys.user: username as AnyObject, Constants.DatabaseKeys.tym: 0 as AnyObject, Constants.DatabaseKeys.timestamp: Constants.DatabaseKeys.serverTime as AnyObject] as [String : AnyObject]
         ref.child(Constants.DatabaseKeys.userList).observeSingleEvent(of: .value, with: { (userSnapshot) in
             if !(userSnapshot.hasChild(self.userID!)) {
                 self.ref.child(Constants.DatabaseKeys.userList).child(self.userID!).setValue(userSetUpData)
             }
         })
+    }
+    
+    func retrievePostsForUser(userID: String) {
+        ref.child(Constants.DatabaseKeys.posts).child(Constants.DatabaseKeys.user).child(userID).queryLimited(toFirst: Constants.DatabaseKeys.queryLimit).observe(.childAdded, with: { (snapshot) in
+            self.postsNew.append(snapshot)
+        })
+        ref.child(<#T##pathString: String##String#>)
     }
     
 }

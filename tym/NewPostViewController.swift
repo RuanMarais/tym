@@ -96,17 +96,17 @@ class NewPostViewController: BaseUIViewController {
         //Add text if available for section 1
         if (textPreviewSection1.text != nil) && (textPreviewSection1.text != "") {
             let text1 = textPreviewSection1.text
-            post.postData[Constants.DatabaseKeys.textOne] = text1
+            post.postData[Constants.DatabaseKeys.textOne] = text1 as AnyObject
         }
         
         //Add text and timegate if available for section 2
         if section2Present {
             if (textPreviewSection2.text != nil) && (textPreviewSection2.text != "") {
                 let text2 = textPreviewSection2.text
-                post.postData[Constants.DatabaseKeys.textTwo] = text2
+                post.postData[Constants.DatabaseKeys.textTwo] = text2 as AnyObject
             }
             let timeGate = Int(durationInputSliderSection2.value)
-                post.postData[Constants.DatabaseKeys.timeGateSection2] = "\(timeGate)"
+                post.postData[Constants.DatabaseKeys.timeGateSection2] = timeGate as AnyObject
             
         }
         

@@ -66,6 +66,9 @@ struct Constants {
         static let imageUrlTwo = "imageUrlTwo"
         static let tym = "tym"
         static let timeGateSection2 = "timeGate"
+        static let timestamp = "timestamp"
+        static let serverTime = [".sv": "timestamp"]
+        static let queryLimit: UInt = 50
     }
     
     // Firebase storage keys

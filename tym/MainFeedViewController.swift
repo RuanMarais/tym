@@ -23,9 +23,15 @@ class MainFeedViewController: BaseUIViewController {
     
     //MARK: Properties - Database
     
-    var postsTop: [FIRDataSnapshot]! = []
-    var postsFeatured: [FIRDataSnapshot]! = []
-    var postsNew: [FIRDataSnapshot]! = []
+    var postsTop: [FIRDataSnapshot]! {
+       return DatabaseHandling.sharedInstance.postsTop
+    }
+    var postsFeatured: [FIRDataSnapshot]! {
+        return DatabaseHandling.sharedInstance.postsFeatured
+    }
+    var postsNew: [FIRDataSnapshot]! {
+        return DatabaseHandling.sharedInstance.postsNew
+    }
     
     //MARK: Properties - tym allocation 
     
@@ -34,7 +40,7 @@ class MainFeedViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        configure()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -89,7 +95,12 @@ extension MainFeedViewController: TymCellDelegate {
 
 extension MainFeedViewController {
     
-    //UI configuration methods 
+    // configuration methods
+    
+    func configure() {
+        configureUI()
+        
+    }
     
     func configureUI() {
         configureTopToolBarColorGradient(topToolBar: topToolBar, mainView: self.view)

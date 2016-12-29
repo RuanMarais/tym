@@ -13,9 +13,9 @@ struct Post {
     
     //Dictionary containing elements of each post 
     
-    var postData: [String: String]
+    var postData: [String: AnyObject]
     
-    init (postDictionary: [String: String]) {
+    init (postDictionary: [String: AnyObject]) {
         postData = postDictionary
     }
     
